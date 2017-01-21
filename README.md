@@ -1,4 +1,4 @@
-A script to check for pwned account in internet databases.
+A script to check for pwned accounts in internet databases.
 
 Supported databases:
 - haveibeenpwned.com
