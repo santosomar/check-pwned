@@ -31,7 +31,6 @@ def haveibeenpwned(account=None, file=None):
             print('\n')
         else:
             print(email + ' - CLEAN\n')
-        sleep(2)
 
     if file:
         f = open(file, 'rb')
