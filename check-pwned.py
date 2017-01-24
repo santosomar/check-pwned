@@ -14,6 +14,12 @@ group.add_argument(
         '-f',
         '--file',
         help='Read accounts from file (one account per line)')
+parser.add_argument(
+        '-d',
+        '--database',
+        help='Choose between the suported databases',
+        choices=['haveibeenpwned', 'hibp'],
+        default='hibp')
 args = parser.parse_args()
 
 
@@ -47,10 +53,11 @@ def haveibeenpwned(account=None, file=None):
             else:
                 print(email + ' - CLEAN\n')
             sleep(2)
+        f.close()
 
+if args.database == 'hibp' or 'haveibeenpwned':
+    if args.account:
+        haveibeenpwned(account=args.account)
 
-if args.account:
-    haveibeenpwned(account=args.account)
-
-if args.file:
-    haveibeenpwned(file=args.file)
+    if args.file:
+        haveibeenpwned(file=args.file)
