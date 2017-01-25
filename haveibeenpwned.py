@@ -16,9 +16,9 @@ class hibp:
         self.name=account
         self.response = self.get_account(self.name)
         if self.response.text:
-            self.t = json.loads(self.response.text)
+            self.jresponse = json.loads(self.response.text)
             print(self.name +  ' - PWNED\n')
-            print(self.t)
+            print(self.jresponse)
         else:
             print(self.name + ' - CLEAN')
 
