@@ -1,5 +1,6 @@
 import argparse
-import hibp
+import haveibeenpwned
+import hackedmails
 from time import sleep
 
 parser = argparse.ArgumentParser(
@@ -17,13 +18,13 @@ parser.add_argument(
         '-d',
         '--database',
         help='Choose between the suported databases',
-        choices=['haveibeenpwned', 'hibp'],
+        choices=['haveibeenpwned', 'hackedmails'],
         default='hibp')
 args = parser.parse_args()
 
 
-if args.database == 'hibp' or 'haveibeenpwned':
-    checker = hibp.hibp()
+if args.database == 'haveibeenpwned':
+    checker = haveibeenpwned.hibp()
     if args.account:
         checker.check(args.account.rstrip())
 
@@ -33,4 +34,17 @@ if args.database == 'hibp' or 'haveibeenpwned':
             checker.check(a.rstrip())
             sleep(2)
         f.close()
-        del checker
+    del checker
+
+if args.database == 'hackedmails':
+    checker = hackedmails.hm()
+    if args.account:
+        checker.check(args.account.rstrip())
+
+    if args.file:
+        f = open(args.file, 'r')
+        for a in f:
+            checker.check(a.rstrip())
+            sleep(2)
+        f.close()
+    del checker
