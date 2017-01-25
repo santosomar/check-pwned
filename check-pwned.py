@@ -18,12 +18,13 @@ parser.add_argument(
         '-d',
         '--database',
         help='Choose between the suported databases',
+        nargs='+',
         choices=['haveibeenpwned', 'hackedmails'],
-        default='hibp')
+        default='haveibeenpwned')
 args = parser.parse_args()
 
 
-if args.database == 'haveibeenpwned':
+if args.database.count('haveibeenpwned') > 0:
     checker = haveibeenpwned.hibp()
     if args.account:
         checker.check(args.account.rstrip())
@@ -36,7 +37,7 @@ if args.database == 'haveibeenpwned':
         f.close()
     del checker
 
-if args.database == 'hackedmails':
+if args.database.count('hackedmails') > 0:
     checker = hackedmails.hm()
     if args.account:
         checker.check(args.account.rstrip())

@@ -1,5 +1,6 @@
 - Include more databases
-- Implement better verbosity options
+- Implement verbosity levels/options
 - Include lastest pastes from the sites that has them
 - Make checks threaded
 - Improove overall code quality (standardize code)
+- Improove overall speed of the tool.
