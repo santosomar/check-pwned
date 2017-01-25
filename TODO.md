@@ -1,0 +1,5 @@
+- Include more databases
+- Implement better verbosity options
+- Include lastest pastes from the sites that has them
+- Make checks threaded
+- Improove overall code quality (standardize code)
