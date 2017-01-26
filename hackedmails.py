@@ -19,9 +19,12 @@ class HackedMails():
         self.response = self._get_account(self.name)
         self.jresponse = json.loads(self.response.text)
         if self.jresponse['status'] == 'found':
-            print(self.name +  ' - PWNED\n')
+            print(self.name +  ' - PWNED')
             if verbose == True:
                 print('\n{}\n'.format(self.jresponse))
+            else:
+               for i in range(len(self.jresponse['data'])):
+                   print('\t{}'.format(self.jresponse['data'][i]['title']))
         else:
             print(self.name + ' - CLEAN')
 

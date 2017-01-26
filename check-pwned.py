@@ -11,11 +11,13 @@ parser.add_argument(
         #'--account',
         metavar='<ACCOUNT>',
         help='One or more email accounts (separated by spaces).',
+        dest='account',
         nargs='+')
 parser.add_argument(
         '-f',
         #'--file',
         metavar='<FILE>',
+        dest='file',
         help='Read accounts from file (one account per line)')
 parser.add_argument(
         '-d',
@@ -25,18 +27,21 @@ parser.add_argument(
         nargs='+',
         choices=['haveibeenpwned', 'hackedmails'],
         metavar='<DBNAME>',
+        dest='database',
         default='haveibeenpwned')
 parser.add_argument(
         '-v',
         #'--verbose',
         help='Show more information from the respose (json format)',
         action='store_true',
+        dest='verbose',
         default=False)
 args = parser.parse_args()
 
 
 if args.database.count('haveibeenpwned') > 0:
     checker = haveibeenpwned.HaveIBeenPwned()
+    print('[+]Checking in haveibeenpwned.com database.')
     if args.account:
         for a in args.account:
             checker.check(a.strip(), args.verbose)
@@ -52,6 +57,7 @@ if args.database.count('haveibeenpwned') > 0:
 
 if args.database.count('hackedmails') > 0:
     checker = hackedmails.HackedMails()
+    print('[+]Checking in hacked-mails.com database.')
     if args.account:
         for a in args.account:
             checker.check(a.strip(), args.verbose)

@@ -22,6 +22,9 @@ class HaveIBeenPwned():
             print(self.name +  ' - PWNED')
             if verbose == True:
                 print('\n{}\n'.format(self.jresponse))
+            else:
+                for i in range(len(self.jresponse)):
+                    print('\t{}'.format(self.jresponse[i]['Name']))
         else:
             print(self.name + ' - CLEAN')
 
