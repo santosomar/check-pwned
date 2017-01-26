@@ -30,6 +30,13 @@ parser.add_argument(
         dest='database',
         default='haveibeenpwned')
 parser.add_argument(
+        '-p',
+        #'--paste',
+        help='Get the pasted leaks sources if avaible.',
+        action='store_true',
+        dest='paste',
+        default=False)
+parser.add_argument(
         '-v',
         #'--verbose',
         help='Show more information from the respose (json format)',
@@ -44,7 +51,7 @@ if args.database.count('haveibeenpwned') > 0:
     print('[+]Checking in haveibeenpwned.com database.')
     if args.account:
         for a in args.account:
-            checker.check(a.strip(), args.verbose)
+            checker.check(a.strip(), args.verbose, args.paste)
             sleep(1.5)
 
     if args.file:

@@ -4,27 +4,47 @@ import json
 class HaveIBeenPwned():
     """Class for the haveibeenpwned.com database API"""
     def __init__(self):
-        self.site = "https://haveibeenpwned.com/api/v2/breachedaccount/"
+        self.breach_url = "https://haveibeenpwned.com/api/v2/breachedaccount/"
+        self.paste_url = "https://haveibeenpwned.com/api/v2/pasteaccount/"
 
-    def _get_account(self, account=""):
+    def _get_breach(self):
         """Makes the GET request to the database and returns the response
         object"""
-        self.name = account
-        self.url = self.site + self.name
+        self.url = self.breach_url + self.name
+        return requests.get(self.url)
+    
+    def _get_paste(self):
+        """Method to get the pasted leaks source form this database"""
+        self.url = self.paste_url + self.name
         return requests.get(self.url)
 
-    def check(self, account="", verbose=False):
-        """Receives the account and makes the GET to the API"""
-        self.name = account
-        self.response = self._get_account(self.name)
+    def _output_response(self):
+        """Outputs the response in a nice manner, using the varibles from the
+        check() function"""
         if self.response.text:
             self.jresponse = json.loads(self.response.text)
             print(self.name +  ' - PWNED')
-            if verbose == True:
+            if self.verbose == True:
                 print('\n{}\n'.format(self.jresponse))
-            else:
+            elif self.jresponse[0].get('Name'):
                 for i in range(len(self.jresponse)):
                     print('\t{}'.format(self.jresponse[i]['Name']))
+            elif self.jresponse[0].get('Source'):
+                for i in range(len(self.jresponse)):
+                    print('\t{} - http://pastebin.com/{}'
+                            .format(self.jresponse[i]['Source'],
+                                    self.jresponse[i]['Id']))
         else:
-            print(self.name + ' - CLEAN')
+            print(self.name + ' - CLEAN OR NO PASTES FOUND')
 
+        
+    def check(self, account="", verbose=False, paste=False):
+        """Receives the account and makes the GET to the API"""
+        self.name = account
+        self.verbose = verbose
+        if paste == True:
+            self.response = self._get_paste()
+            self._output_response()
+        else:
+            self.response = self._get_breach()
+            self._output_response()

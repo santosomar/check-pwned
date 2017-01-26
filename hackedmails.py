@@ -14,7 +14,7 @@ class HackedMails():
         return requests.get(self.url)
 
     def check(self, account="", verbose=False):
-        """Receives de account, call the get function and print results"""
+        """Receives the account, call the get function and print results"""
         self.name = account
         self.response = self._get_account(self.name)
         self.jresponse = json.loads(self.response.text)
