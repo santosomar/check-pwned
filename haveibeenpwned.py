@@ -31,7 +31,7 @@ class HaveIBeenPwned():
                     print('\t{}'.format(self.jresponse[i]['Name']))
             elif self.jresponse[0].get('Source'):
                 for i in range(len(self.jresponse)):
-                    print('\t{} - http://pastebin.com/{}'
+                    print('\t{} - [PASTE SITE URL]/{}'
                             .format(self.jresponse[i]['Source'],
                                     self.jresponse[i]['Id']))
         else:
