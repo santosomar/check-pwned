@@ -25,7 +25,7 @@ args = parser.parse_args()
 
 
 if args.database.count('haveibeenpwned') > 0:
-    checker = haveibeenpwned.hibp()
+    checker = haveibeenpwned.HaveIBeenPwned()
     if args.account:
         checker.check(args.account.rstrip())
 
@@ -38,7 +38,7 @@ if args.database.count('haveibeenpwned') > 0:
     del checker
 
 if args.database.count('hackedmails') > 0:
-    checker = hackedmails.hm()
+    checker = hackedmails.HackedMails()
     if args.account:
         checker.check(args.account.rstrip())
 
