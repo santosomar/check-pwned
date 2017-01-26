@@ -7,19 +7,24 @@ class HaveIBeenPwned():
         self.site = "https://haveibeenpwned.com/api/v2/breachedaccount/"
 
     def _get_account(self, account=""):
-        """Makes the GET request to the database"""
+        """Makes the GET request to the database and returns the response
+        object"""
         self.name = account
         self.url = self.site + self.name
         return requests.get(self.url)
 
-    def check(self, account=""):
+    def check(self, account="", verbose=False):
         """Receives the account and makes the GET to the API"""
         self.name = account
         self.response = self._get_account(self.name)
         if self.response.text:
             self.jresponse = json.loads(self.response.text)
-            print(self.name +  ' - PWNED\n')
-            print(self.jresponse)
+            print(self.name +  ' - PWNED')
+            #FIX: Make it pythonic print
+            if verbose == True:
+                print('\n')
+                print(self.jresponse)
+                print('\n')
         else:
             print(self.name + ' - CLEAN')
 
