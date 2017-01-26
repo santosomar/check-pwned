@@ -35,13 +35,13 @@ if args.database.count('haveibeenpwned') > 0:
     checker = haveibeenpwned.HaveIBeenPwned()
     if args.account:
         for a in args.account:
-            checker.check(a.rstrip(), args.verbose)
+            checker.check(a.strip(), args.verbose)
             sleep(1.5)
 
     if args.file:
         f = open(args.file, 'r')
         for a in f:
-            checker.check(a.rstrip(), args.verbose)
+            checker.check(a.strip(), args.verbose)
             sleep(1.5)
         f.close()
     del checker
@@ -49,12 +49,14 @@ if args.database.count('haveibeenpwned') > 0:
 if args.database.count('hackedmails') > 0:
     checker = hackedmails.HackedMails()
     if args.account:
-        checker.check(args.account.rstrip(), args.verbose)
+        for a in args.account:
+            checker.check(a.strip(), args.verbose)
+            sleep(1.5)
 
     if args.file:
         f = open(args.file, 'r')
         for a in f:
-            checker.check(a.rstrip(), args.verbose)
+            checker.check(a.strip(), args.verbose)
             sleep(1.5)
         f.close()
     del checker

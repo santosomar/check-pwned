@@ -20,11 +20,8 @@ class HaveIBeenPwned():
         if self.response.text:
             self.jresponse = json.loads(self.response.text)
             print(self.name +  ' - PWNED')
-            #FIX: Make it pythonic print
             if verbose == True:
-                print('\n')
-                print(self.jresponse)
-                print('\n')
+                print('\n{}\n'.format(self.jresponse))
         else:
             print(self.name + ' - CLEAN')
 

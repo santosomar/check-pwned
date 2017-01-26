@@ -22,9 +22,7 @@ class HackedMails():
             print(self.name +  ' - PWNED\n')
             #FIX: Make it pythonic print
             if verbose == True:
-                print('\n')
-                print(self.jresponse)
-                print('\n')
+                print('\n{}\n'.format(self.jresponse))
         else:
             print(self.name + ' - CLEAN')
 
