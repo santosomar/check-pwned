@@ -20,7 +20,6 @@ class HackedMails():
         self.jresponse = json.loads(self.response.text)
         if self.jresponse['status'] == 'found':
             print(self.name +  ' - PWNED\n')
-            #FIX: Make it pythonic print
             if verbose == True:
                 print('\n{}\n'.format(self.jresponse))
         else:

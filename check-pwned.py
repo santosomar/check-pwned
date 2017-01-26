@@ -8,23 +8,27 @@ parser = argparse.ArgumentParser(
 #group = parser.add_mutually_exclusive_group()
 parser.add_argument(
         '-a',
-        '--account',
+        #'--account',
+        metavar='<ACCOUNT>',
         help='One or more email accounts (separated by spaces).',
         nargs='+')
 parser.add_argument(
         '-f',
-        '--file',
+        #'--file',
+        metavar='<FILE>',
         help='Read accounts from file (one account per line)')
 parser.add_argument(
         '-d',
-        '--database',
-        help='Choose between the suported databases',
+        #'--database',
+        help='Choose the database(s) (available \
+        databases: %(choices)s).',
         nargs='+',
         choices=['haveibeenpwned', 'hackedmails'],
+        metavar='<DBNAME>',
         default='haveibeenpwned')
 parser.add_argument(
         '-v',
-        '--verbose',
+        #'--verbose',
         help='Show more information from the respose (json format)',
         action='store_true',
         default=False)
