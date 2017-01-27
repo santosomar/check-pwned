@@ -24,7 +24,7 @@ class HaveIBeenPwned():
         check() function"""
         if self.response.text:
             self.jresponse = json.loads(self.response.text)
-            print(self.name +  ' - PWNED')
+            print('\n' + self.name +  ' - PWNED')
             if self.verbose == True:
                 pprint(self.jresponse)
             elif self.jresponse[0].get('Name'):
@@ -36,16 +36,24 @@ class HaveIBeenPwned():
                             .format(self.jresponse[i]['Source'],
                                     self.jresponse[i]['Id']))
         else:
-            print(self.name + ' - CLEAN OR NO PASTES FOUND')
+            print('\n' + self.name + ' - CLEAN')
 
         
     def check(self, account="", verbose=False, paste=False):
         """Receives the account and makes the GET to the API"""
         self.name = account
         self.verbose = verbose
-        if paste == True:
-            self.response = self._get_paste()
-            self._output_response()
-        else:
+
+        #Check for breached account
+        if self.name:
             self.response = self._get_breach()
             self._output_response()
+
+        #Check for paste links
+        if paste == True and self.response.status_code == 200:
+            self.response = self._get_paste()
+            if self.response.status_code == 200:
+                self._output_response()
+            else:
+                print('\nNo leaked pastes found.')
+
