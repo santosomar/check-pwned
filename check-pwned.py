@@ -7,23 +7,24 @@ parser = argparse.ArgumentParser(
         description='Check for pwned accounts.')
 #group = parser.add_mutually_exclusive_group()
 parser.add_argument(
-        'account',
+        '-a',
         #'--account',
         metavar='<ACCOUNT>',
         help='One or more email accounts (separated by spaces).',
-        #dest='account',
+        dest='account',
         nargs='+')
 parser.add_argument(
         '-f',
         #'--file',
         metavar='<FILE>',
         dest='file',
+        nargs=1,
         help='Read accounts from file (one account per line)')
 parser.add_argument(
         '-d',
         #'--database',
-        help='Choose the database(s) (available \
-        databases: %(choices)s).',
+        help='Choose the database(s) default:haveibeenpwned. (available\
+: %(choices)s).',
         nargs='+',
         choices=['haveibeenpwned', 'hackedmails'],
         metavar='<DBNAME>',
@@ -45,8 +46,13 @@ parser.add_argument(
         default=False)
 args = parser.parse_args()
 
+#Throws error if no account or no account file is specified
+#This is required to fix behavior when running without any args
+if (args.database) and not (args.account or args.file):
+    parser.error('You must specify at least one account or one account file.')
 
-if args.database.count('haveibeenpwned') > 0:
+#Start check for haveibeenpwned database
+if 'haveibeenpwned' in args.database:
     checker = haveibeenpwned.HaveIBeenPwned()
     print('[+]Checking in haveibeenpwned.com database.')
     if args.account:
@@ -62,7 +68,8 @@ if args.database.count('haveibeenpwned') > 0:
         f.close()
     del checker
 
-if args.database.count('hackedmails') > 0:
+#Start check for hackedmails database
+if 'hackedmails' in args.database:
     checker = hackedmails.HackedMails()
     print('[+]Checking in hacked-emails.com database.')
     if args.account:
