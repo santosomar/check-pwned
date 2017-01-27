@@ -1,5 +1,6 @@
 import requests
 import json
+from pprint import pprint
 
 class HaveIBeenPwned():
     """Class for the haveibeenpwned.com database API"""
@@ -25,7 +26,7 @@ class HaveIBeenPwned():
             self.jresponse = json.loads(self.response.text)
             print(self.name +  ' - PWNED')
             if self.verbose == True:
-                print('\n{}\n'.format(self.jresponse))
+                pprint(self.jresponse)
             elif self.jresponse[0].get('Name'):
                 for i in range(len(self.jresponse)):
                     print('\t{}'.format(self.jresponse[i]['Name']))
