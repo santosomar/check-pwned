@@ -7,11 +7,11 @@ parser = argparse.ArgumentParser(
         description='Check for pwned accounts.')
 #group = parser.add_mutually_exclusive_group()
 parser.add_argument(
-        '-a',
+        'account',
         #'--account',
         metavar='<ACCOUNT>',
         help='One or more email accounts (separated by spaces).',
-        dest='account',
+        #dest='account',
         nargs='+')
 parser.add_argument(
         '-f',
@@ -64,7 +64,7 @@ if args.database.count('haveibeenpwned') > 0:
 
 if args.database.count('hackedmails') > 0:
     checker = hackedmails.HackedMails()
-    print('[+]Checking in hacked-mails.com database.')
+    print('[+]Checking in hacked-emails.com database.')
     if args.account:
         for a in args.account:
             checker.check(a.strip(), args.verbose)
